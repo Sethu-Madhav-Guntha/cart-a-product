@@ -5,6 +5,7 @@
 
 # Ignore macOS system files
 .DS_Store
+src/.DS_Store
 
 # Ignore build outputs
 target/
