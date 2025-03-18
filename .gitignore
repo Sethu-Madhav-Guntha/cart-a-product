@@ -1,1 +1,11 @@
-/target/
+# Ignore Eclipse project files
+.settings/
+.classpath
+.project
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore build outputs
+target/
+test-output/
