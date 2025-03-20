@@ -12,10 +12,28 @@ public class HomePage extends BasePage {
 		super(driverObj);
 	}
 	
-	@FindBy(xpath="//*[@id=\"desktop-header-cnt\"]/div[2]/nav/div/div[1]/div/a")
-	private WebElement menOption;
+	@FindBy(xpath="//a[text()=\"Men\" and @data-group=\"men\"]")
+	private WebElement menCategory;
+	
+	@FindBy(xpath="//a[@href=\"/men-tshirts\"]")
+	private WebElement tshirtItems;
+	
+	
+	@FindBy(xpath="//input[@class=\"desktop-searchBar\"]")
+	private WebElement searchBox;
+
+	public void searchBox(String itemName) {
+		sendDataToElement(searchBox, itemName);
+		System.out.println("Searched Item");
+	}
 	
 	public void hoverMenOption() {
-		hoverOnElement(menOption);
+		hoverOnElement(menCategory);
+		System.out.println("Hovered On Men Category");
+	}
+	
+	public void selectTshirtItems() {
+		clickElement(tshirtItems);
+		System.out.println("Selected T-Shirt Items");
 	}
 }

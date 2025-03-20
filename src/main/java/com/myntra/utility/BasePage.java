@@ -2,6 +2,7 @@ package com.myntra.utility;
 
 import java.time.Duration;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,6 +15,7 @@ public class BasePage {
 	protected WebDriver driverObj;
 	protected WebDriverWait wait;
 	protected Actions actionsObj;
+	protected JavascriptExecutor javascriptExecutorObj = (JavascriptExecutor) driverObj;
 	ConfigReader configReaderObj = new ConfigReader();
 	
 	public BasePage(WebDriver driverObj) {
@@ -23,23 +25,34 @@ public class BasePage {
 		PageFactory.initElements(driverObj, this);
 	}
 
-	public void hoverOnElement(WebElement element) {
-//		wait.until(ExpectedConditions.visibilityOf(element));
-		System.out.println(element);
-		actionsObj = new Actions(driverObj);
-		actionsObj.moveToElement(element).perform();
-		
+	public WebElement isElementVisible(WebElement element) {		
+//		javascriptExecutorObj = (JavascriptExecutor) driverObj;
+//		javascriptExecutorObj.executeScript("arguments[0].scrollIntoView(true);", element);
+		return wait.until(ExpectedConditions.visibilityOf(element));
+	}
+	
+	public WebElement highLightElement(WebElement element) {
+		element = isElementVisible(element);
+		javascriptExecutorObj = (JavascriptExecutor) driverObj;
+		javascriptExecutorObj.executeScript("arguments[0].style.border='3px solid red'", element);
+		return element;
 	}
 		
+	public void hoverOnElement(WebElement element) {
+		highLightElement(element);
+		actionsObj = new Actions(driverObj);
+		actionsObj.moveToElement(element).perform();		
+	}
+	
 	public String getElementText(WebElement element) {
-		return wait.until(ExpectedConditions.visibilityOf(element)).getText();
+		return highLightElement(element).getText();
 	}
 	
 	public void clickElement(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+		highLightElement(element).click();
     }
 
     public void sendDataToElement(WebElement element, String text) {
-        wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(text);
+    	highLightElement(element).sendKeys(text);
     }
 }
