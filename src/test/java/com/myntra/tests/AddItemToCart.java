@@ -7,6 +7,7 @@ import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
 import com.myntra.pageObjects.CartPage;
 import com.myntra.pageObjects.HomePage;
 import com.myntra.pageObjects.PowerLookTShirt;
@@ -14,6 +15,7 @@ import com.myntra.pageObjects.TShirtsPage;
 import com.myntra.utility.ConfigReader;
 
 public class AddItemToCart extends BaseTest {
+
 	ConfigReader configReaderObj = new ConfigReader();
 	HomePage homePageObj;
 	TShirtsPage tShirtsPageObj;
@@ -26,14 +28,14 @@ public class AddItemToCart extends BaseTest {
 	Map<String, String> tShirtDetails;
 	Map<String, String> itemDetails;
 	
-	
 	@Test
 	public void testingWebsiteOnInputBrowser() throws InterruptedException {
+		testObj = extentReportsObj.createTest("Add Item to Cart");
+		driverObj = browserUtilsObj.lauchWebsiteByBrowser(browser, website, isHeadless);
 		System.out.println("Browser: " + browser);
 		System.out.printf("Headless Mode: %s\n", isHeadless? "ON" : "OFF");
 		System.out.printf("Website: %s\n", website);
 		
-		driverObj = browserUtilsObj.lauchWebsiteByBrowser(browser, website, isHeadless);
 		homePageObj = new HomePage(driverObj);
 		tShirtsPageObj = new TShirtsPage(driverObj);
 		powerLookTShirtObj = new PowerLookTShirt(driverObj);
@@ -57,8 +59,9 @@ public class AddItemToCart extends BaseTest {
 		itemDetails = cartPageObj.getItemDetails();
 		
 		Assert.assertEquals(tShirtDetails, itemDetails, "Item and cart details do not match!");
-		System.out.println("All details match successfully!");
+		System.out.println("You can buy the item now as the details on the item and cart pages match!");
 		
+		testObj.log(Status.PASS, "Test case executed successfully");
 	}
 
 

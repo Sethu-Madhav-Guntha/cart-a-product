@@ -26,7 +26,7 @@ public class PowerLookTShirt extends BasePage {
 	@FindBy(xpath="//span[@class=\"pdp-price\"]//strong")
 	private WebElement tShirtPrice;
 	
-	@FindBy(xpath="//p[@class='size-buttons-unified-size' and text()=\"L\"]")
+	@FindBy(xpath="//p[@class='size-buttons-unified-size' and text()=\"M\"]")
 	private WebElement tShirtSize;
 		
 	@FindBy(xpath="//*[@id=\"mountRoot\"]/div/div[1]/main/div[2]/div[2]/div[2]/div[2]/div/div[1]")
@@ -64,7 +64,10 @@ public class PowerLookTShirt extends BasePage {
 	
 	public Map<String, String> getTShirtDetails() {
 		List<String> handles = new ArrayList<>(driverObj.getWindowHandles());
-		driverObj.switchTo().window(handles.get(1));		
+		driverObj.switchTo().window(handles.get(1));	
+		
+		selectTShirtSize();
+		System.out.println("selected size");
 
 		System.out.println("T-Shirt Details at Cart Page");
 		System.out.printf("T-Shirt Name: %s\n",getTShirtName());
@@ -85,11 +88,9 @@ public class PowerLookTShirt extends BasePage {
 	}
 	
 	public void addTShirtToCart() {
-//		getTShirtDetails();
-		selectTShirtSize();
+		clickElement(tShirtName);
 		clickElement(addToCart);
-//		highLightElement(notification);
-		clickElement(goToBag);
+		clickElement(goToBag);		
 		System.out.println("Added Item to Cart");
 	}
 }

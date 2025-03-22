@@ -16,8 +16,8 @@ public class BasePage {
 	protected WebDriverWait wait;
 	protected Actions actionsObj;
 	protected JavascriptExecutor javascriptExecutorObj = (JavascriptExecutor) driverObj;
-	ConfigReader configReaderObj = new ConfigReader();
-	
+	protected ConfigReader configReaderObj = new ConfigReader();
+		
 	public BasePage(WebDriver driverObj) {
 		this.driverObj = driverObj;
 		int waitTime = Integer.parseInt(configReaderObj.getProperty("explicit.wait"));
@@ -26,15 +26,13 @@ public class BasePage {
 	}
 
 	public WebElement isElementVisible(WebElement element) {		
-//		javascriptExecutorObj = (JavascriptExecutor) driverObj;
-//		javascriptExecutorObj.executeScript("arguments[0].scrollIntoView(true);", element);
 		return wait.until(ExpectedConditions.visibilityOf(element));
 	}
 	
 	public WebElement highLightElement(WebElement element) {
 		element = isElementVisible(element);
 		javascriptExecutorObj = (JavascriptExecutor) driverObj;
-		javascriptExecutorObj.executeScript("arguments[0].style.border='3px solid red'", element);
+		javascriptExecutorObj.executeScript("arguments[0].style.border='2px solid red'", element);
 		return element;
 	}
 		

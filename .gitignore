@@ -2,6 +2,9 @@
 .settings/
 .classpath
 .project
+extentReports.html
+logs/
+screenshots/
 
 # Ignore macOS system files
 .DS_Store
