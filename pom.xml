@@ -76,6 +76,11 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
 				<configuration>
+					<systemPropertyVariables>
+						<log4j.configurationFile>
+							src/test/resources/log_config.xml
+						</log4j.configurationFile>
+					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
